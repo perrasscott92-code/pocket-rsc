@@ -231,7 +231,7 @@ sqlite3 ~/Core-Framework/server/inc/sqlite/preservation.db \
 | `batch_progression` | true | One click keeps a skilling action going |
 | `experience_drops_toggle` / `experience_counter_toggle` | true | Shows XP gains |
 | `want_bank_notes` / `want_cert_deposit` | true | Easier banking |
-| `want_equipment_tab` | true | Equipment tab |
+| `want_equipment_tab` | false | Needs an `equipped` table the Preservation SQLite database does not have; enabling it breaks character loading |
 | `want_bank_presets` | false | Enabling it breaks the logout save (NullPointerException in `querySavePlayerBankPresets`), leaving players stuck "still logged in" |
 | `want_decanting` | true | Combine potions |
 | `want_improved_pathfinding` | true | A* pathing when chasing NPCs |
@@ -295,6 +295,10 @@ Fix: Copy the APK to Downloads and install it.
 **"Already logged in"**
 A stale session left over from the earlier disconnect.
 Fix: Wait a minute or restart the server.
+
+**Login loop, "still logged in," null inventory and bank errors**
+The log showed `no such table: equipped` at login. The equipment tab and bank presets need database tables the Preservation SQLite database does not have, so characters failed to load and every save rolled back.
+Fix: `want_equipment_tab: false` and `want_bank_presets: false`.
 
 **Termux gotchas worth knowing**
 - If a command stops for input partway through a pasted block (like the Ubuntu timezone prompt), the rest of the block gets typed into that prompt instead of running.

@@ -46,7 +46,7 @@ set_key experience_drops_toggle true
 set_key experience_counter_toggle true
 set_key want_bank_notes true
 set_key want_cert_deposit true
-set_key want_equipment_tab true
+set_key want_equipment_tab false   # needs an "equipped" table the Preservation SQLite DB lacks
 set_key want_bank_presets false   # true breaks logout saves (NullPointerException)
 set_key want_decanting true
 set_key want_improved_pathfinding true
