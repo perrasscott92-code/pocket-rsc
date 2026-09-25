@@ -1,11 +1,14 @@
 #!/data/data/com.termux/files/usr/bin/bash
-# RSC - Termux:Widget launcher (install to ~/.shortcuts/RSC, icon to ~/.shortcuts/icons/RSC.png)
-# Starts the OpenRSC server in proot Ubuntu if it isn't running, starts the
-# idle watchdog, then opens the Android client.
+LOG=$HOME/rsc-server.log
 termux-wake-lock
+screen -wipe >/dev/null 2>&1
 if ! screen -ls | grep -q '\.rsc[[:space:]]'; then
-  screen -dmS rsc proot-distro login ubuntu --bind $HOME/Core-Framework:/root/Core-Framework -- bash -c "cd /root/Core-Framework/server && ant runserver -DconfFile=local"
+  : > "$LOG"
+  screen -L -Logfile "$LOG" -dmS rsc proot-distro login ubuntu --bind $HOME/Core-Framework:/root/Core-Framework -- bash -c "cd /root/Core-Framework/server && ant runserver -DconfFile=local"
   screen -dmS rscwatch $HOME/rsc-watch.sh
-  sleep 20
+  for i in $(seq 1 120); do
+    grep -q "now online on TCP" "$LOG" && break
+    sleep 1
+  done
 fi
 am start -n com.openrsc.client/com.openrsc.android.updater.ApplicationUpdater
