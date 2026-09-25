@@ -231,7 +231,8 @@ sqlite3 ~/Core-Framework/server/inc/sqlite/preservation.db \
 | `batch_progression` | true | One click keeps a skilling action going |
 | `experience_drops_toggle` / `experience_counter_toggle` | true | Shows XP gains |
 | `want_bank_notes` / `want_cert_deposit` | true | Easier banking |
-| `want_equipment_tab` / `want_bank_presets` | true | Equipment tab and bank loadouts |
+| `want_equipment_tab` | true | Equipment tab |
+| `want_bank_presets` | false | Enabling it breaks the logout save (NullPointerException in `querySavePlayerBankPresets`), leaving players stuck "still logged in" |
 | `want_decanting` | true | Combine potions |
 | `want_improved_pathfinding` | true | A* pathing when chasing NPCs |
 | `want_skill_menus` / `want_quest_menus` | true | In-game guides |
