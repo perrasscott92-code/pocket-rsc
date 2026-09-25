@@ -1,0 +1,5 @@
+# Signing keys and built/decompiled clients never go in the repo
+*.keystore
+*.jks
+*.apk
+orsc/

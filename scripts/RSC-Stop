@@ -1,0 +1,10 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# RSC-Stop - Termux:Widget shortcut that shuts the server down cleanly right away.
+if screen -ls | grep -q '\.rsc[[:space:]]'; then
+  screen -S rsc -X stuff $'\003'
+  sleep 20
+  screen -S rsc -X quit 2>/dev/null
+fi
+screen -S rscwatch -X quit 2>/dev/null
+termux-wake-unlock
+echo "Server stopped."
